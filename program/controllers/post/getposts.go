@@ -1,17 +1,17 @@
 package post
 
 import (
-	"fmt"
 	postService "go-gin-postgres/program/services/post"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Add(context *gin.Context) {
-	if error := postService.Add(); error != nil {
-		fmt.Println(error)
+func GetPosts(context *gin.Context) {
+	posts, error := postService.GetPosts()
+	if error != nil {
 		context.JSON(http.StatusBadRequest, error.Error())
+		return
 	}
-	context.JSON(http.StatusOK, "ok")
+	context.JSON(http.StatusAccepted, posts)
 }

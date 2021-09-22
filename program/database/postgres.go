@@ -1,4 +1,4 @@
-package datasources
+package database
 
 import (
 	"database/sql"
@@ -27,14 +27,7 @@ var (
 )
 
 func init() {
-	dataSourceName := fmt.Sprintf(
-		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
-		username,
-		password,
-		host,
-		port,
-		database,
-	)
+	dataSourceName := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", username, password, host, port, database)
 	// let this error like this otherwise Client would be declared once again and throw nil dereference exception
 	var error error
 	Client, error = sql.Open("postgres", dataSourceName)
@@ -45,5 +38,4 @@ func init() {
 	if error = Client.Ping(); error != nil {
 		panic(error)
 	}
-	fmt.Println("connection successful")
 }

@@ -3,18 +3,20 @@ package post
 import (
 	"errors"
 	"fmt"
-	"go-gin-postgres/program/datasources"
+	"go-gin-postgres/program/database"
 )
 
 const (
 	INSERT_QUERY = "INSERT INTO Posts (Title, Description) VALUES ($1, $2);"
 )
 
-func Add() error {
+func AddPost() error {
+	// ONLY FOR PING DATABASE TO CHECK IF CONNECTION WAS SUCCESSFUL
+
 	// if error := datasources.Client.Ping(); error != nil {
 	// 	panic(error)
 	// }
-	statement, error := datasources.Client.Prepare(INSERT_QUERY)
+	statement, error := database.Client.Prepare(INSERT_QUERY)
 	if error != nil {
 		return error
 	}
