@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	GET_POSTS_QUERY = "SELECT Id, Title, Description FROM Posts"
+	GET_POSTS_QUERY = "SELECT Id, Title, Description FROM Posts ORDER BY Id"
 )
 
 func GetPosts() ([]postEntity.Post, error) {
