@@ -10,6 +10,17 @@ import (
 	"gopkg.in/validator.v2"
 )
 
+// HealthCheck godoc
+// @Summary Show the status of server.
+// @Description get the status of server.
+// @Tags UpdatePost
+// @Accept */*
+// @Produce json
+// @Param id path int true "Post ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} httputil.HTTPError
+// @Failure 404 {object} httputil.HTTPError
+// @Router /todo/:id [put]
 func UpdatePost(context *gin.Context) {
 	id, error := strconv.ParseInt(context.Param("id"), 10, 64)
 	if error != nil {
