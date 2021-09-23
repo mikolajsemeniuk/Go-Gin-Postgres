@@ -8,13 +8,13 @@ import (
 )
 
 // HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags GetPosts
+// @Summary /post
+// @Description description over here
+// @Tags Post
 // @Accept */*
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /todo [get]
+// @Router /posts [get]
 func GetPosts(context *gin.Context) {
 	posts, error := postService.GetPosts()
 	if error != nil {

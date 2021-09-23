@@ -9,16 +9,16 @@ import (
 )
 
 // HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags GetPost
+// @Summary /post/:id
+// @Description description over here
+// @Tags Post
 // @Accept */*
 // @Produce json
-// @Param id path int true "Post ID"
-// @Success 200 {object} map[string]interface{}
-// @Failure 400 {object} httputil.HTTPError
-// @Failure 404 {object} httputil.HTTPError
-// @Router /todo/:id [get]
+// @Param id path int true "Post Id"
+// @Success 200 {object} post.Post
+// @Failure 400 {object} interface{}
+// @Failure 404 {object} interface{}
+// @Router /posts/{id} [get]
 func GetPost(context *gin.Context) {
 	id, error := strconv.ParseInt(context.Param("id"), 10, 64)
 	if error != nil {
@@ -31,5 +31,5 @@ func GetPost(context *gin.Context) {
 		context.JSON(http.StatusNotFound, error.Error())
 		return
 	}
-	context.JSON(http.StatusAccepted, post)
+	context.JSON(http.StatusOK, post)
 }

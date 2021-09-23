@@ -32,9 +32,9 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/todo": {
+        "/posts": {
             "get": {
-                "description": "get the status of server.",
+                "description": "description over here",
                 "consumes": [
                     "*/*"
                 ],
@@ -42,9 +42,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "GetPosts"
+                    "Post"
                 ],
-                "summary": "Show the status of server.",
+                "summary": "/post",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -56,7 +56,7 @@ var doc = `{
                 }
             },
             "post": {
-                "description": "get the status of server.",
+                "description": "description over here",
                 "consumes": [
                     "*/*"
                 ],
@@ -64,52 +64,39 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "AddPost"
+                    "Post"
                 ],
-                "summary": "Show the status of server.",
+                "summary": "/post",
+                "parameters": [
+                    {
+                        "description": "Add Post",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputs.PostInput"
+                        }
+                    }
+                ],
                 "responses": {
                     "202": {
                         "description": "Accepted",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "type": "object"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "get the status of server.",
-                "consumes": [
-                    "*/*"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "RemovePost"
-                ],
-                "summary": "Show the status of server.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "type": "object"
                         }
                     }
                 }
             }
         },
-        "/todo/:id": {
+        "/posts/{id}": {
             "get": {
-                "description": "get the status of server.",
+                "description": "description over here",
                 "consumes": [
                     "*/*"
                 ],
@@ -117,21 +104,41 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "GetPost"
+                    "Post"
                 ],
-                "summary": "Show the status of server.",
+                "summary": "/post/:id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Post Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/post.Post"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object"
                         }
                     }
                 }
             },
             "put": {
-                "description": "get the status of server.",
+                "description": "description over here",
                 "consumes": [
                     "*/*"
                 ],
@@ -139,17 +146,115 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "UpdatePost"
+                    "Post"
                 ],
-                "summary": "Show the status of server.",
+                "summary": "/post/:id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Post ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Post",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputs.PostInput"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object"
                         }
                     }
+                }
+            },
+            "delete": {
+                "description": "description over here",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "/post/:id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Post Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "inputs.PostInput": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "post.Post": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
                 }
             }
         }
@@ -169,7 +274,7 @@ type swaggerInfo struct {
 var SwaggerInfo = swaggerInfo{
 	Version:     "2.0",
 	Host:        "localhost:8080",
-	BasePath:    "/",
+	BasePath:    "",
 	Schemes:     []string{"http"},
 	Title:       "Gin Swagger Example API",
 	Description: "This is a sample server server.",

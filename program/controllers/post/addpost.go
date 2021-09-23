@@ -2,6 +2,7 @@ package post
 
 import (
 	"go-gin-postgres/program/inputs"
+	"go-gin-postgres/program/payloads"
 	postService "go-gin-postgres/program/services/post"
 	"net/http"
 
@@ -10,19 +11,22 @@ import (
 )
 
 // HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags AddPost
+// @Summary /post
+// @Description description over here
+// @Tags Post
 // @Accept */*
 // @Produce json
-// @Success 202 {object} map[string]interface{}
-// @Success 404 {object} map[string]interface{}
-// @Router /todo [post]
+// @Param body body inputs.PostInput true "Add Post"
+// @Success 202 {object} interface{}
+// @Success 404 {object} interface{}
+// @Router /posts [post]
 func AddPost(context *gin.Context) {
 	var postInput inputs.PostInput
 
 	if error := context.ShouldBindJSON(&postInput); error != nil {
-		context.JSON(http.StatusBadRequest, error.Error())
+		context.JSON(http.StatusBadRequest, payloads.ErrorPayload{
+			Message: "error binding data",
+		})
 		return
 	}
 

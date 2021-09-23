@@ -1,4 +1,20 @@
-basePath: /
+definitions:
+  inputs.PostInput:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  post.Post:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact:
@@ -13,26 +29,11 @@ info:
   title: Gin Swagger Example API
   version: "2.0"
 paths:
-  /todo:
-    delete:
-      consumes:
-      - '*/*'
-      description: get the status of server.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Show the status of server.
-      tags:
-      - RemovePost
+  /posts:
     get:
       consumes:
       - '*/*'
-      description: get the status of server.
+      description: description over here
       produces:
       - application/json
       responses:
@@ -41,60 +42,125 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Show the status of server.
+      summary: /post
       tags:
-      - GetPosts
+      - Post
     post:
       consumes:
       - '*/*'
-      description: get the status of server.
+      description: description over here
+      parameters:
+      - description: Add Post
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.PostInput'
       produces:
       - application/json
       responses:
         "202":
           description: Accepted
           schema:
-            additionalProperties: true
             type: object
         "404":
           description: Not Found
           schema:
-            additionalProperties: true
             type: object
-      summary: Show the status of server.
+      summary: /post
       tags:
-      - AddPost
-  /todo/:id:
+      - Post
+  /posts/{id}:
+    delete:
+      consumes:
+      - '*/*'
+      description: description over here
+      parameters:
+      - description: Post Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            type: object
+      summary: /post/:id
+      tags:
+      - Post
     get:
       consumes:
       - '*/*'
-      description: get the status of server.
+      description: description over here
+      parameters:
+      - description: Post Id
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
+            $ref: '#/definitions/post.Post'
+        "400":
+          description: Bad Request
+          schema:
             type: object
-      summary: Show the status of server.
+        "404":
+          description: Not Found
+          schema:
+            type: object
+      summary: /post/:id
       tags:
-      - GetPost
+      - Post
     put:
       consumes:
       - '*/*'
-      description: get the status of server.
+      description: description over here
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Post
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.PostInput'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
             type: object
-      summary: Show the status of server.
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            type: object
+      summary: /post/:id
       tags:
-      - UpdatePost
+      - Post
 schemes:
 - http
 swagger: "2.0"

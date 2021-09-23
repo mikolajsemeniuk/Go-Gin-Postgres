@@ -15,7 +15,7 @@ import "go-gin-postgres/program/application"
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host localhost:8080
-// @BasePath /
+// @BasePath
 // @schemes http
 func main() {
 	application.
